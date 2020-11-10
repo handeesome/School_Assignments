@@ -1,0 +1,277 @@
+																								Computer Neworks
+																									Homework 1
+
+Problem 1.1		 
+		a) Tool: Ping(ping from iputils s20190709)
+		  									              minimum round-trip time(10 samples)    date
+      ·amazon.com 			              102.292ms 															2020/9/17 14:46
+      ·www.amazon.com               	9.430ms 															  2020/9/17 14:47
+      ·www.jacobs-university.de     14.942ms 															  2020/9/17 14:48
+      ·moodle.jacobs-university.de  3.874ms 														   	2020/9/17 14:48
+
+			In these four hosts, I can tell moodle.jacobs-university.de router has the closest distance from campus comparing to others. Also, world wide web is faster than local server, which could also contribute to the distance between routers.
+
+		b) Tool: mtr(mtr 0.93)
+						amazon.com  		www.amazon.com			www.jacobs-university.de  moodle.jacobs-university.de
+	AS path   2 * AS??      2 * AS??            2 * AS??                   1 * AS?? 
+           5 * AS 680     2 * AS 680         4 * AS 680                 1 * AS 680
+          		1 AS??        8 AS??              2 AS??
+						5 * AS1299      1 * AS16509       2 * AS24940
+						11 * AS??
+ 						2* AS16509
+	number
+	of hops			26              13                10                            2
+		
+		date  2020/9/17 15:01 2020/9/17 15:02  2020/9/17 15:03               2020/9/17 15:03
+
+		The number of hops relates to the round-trip time.The less the number of hosts the package needs to travel by, the faster we as the sender receives feedback.
+
+Problem 1.2
+		a)AS680 is assigned by DFN, RIPE 
+			AS1299 is assigned by  TELIANET, RIPE
+			AS16509 is assigned by AMAZON-02, ARIN 
+			AS24940 is assigned by HETZNER-AS, RIPE 
+		
+		b)2001:638:709::/48 is described as Campus Network of the International University Bremen, which is not announced but the result has been aligned to first level less-specific 2001:638::/32.
+
+Problem 1.3 
+		a)
+------------------------------------------------------------
+			Client connecting to 10.0.0.2, TCP port 5001
+			TCP window size:  170 KByte (default)
+------------------------------------------------------------
+			[  3] local 10.0.0.1 port 40780 connected with 10.0.0.2 port 5001
+			[ ID] Interval       Transfer     Bandwidth
+			[  3]  0.0-10.0 sec  11.8 MBytes  9.86 Mbits/sec
+			[  3] 10.0-20.0 sec  11.4 MBytes  9.54 Mbits/sec
+			[  3] 20.0-30.0 sec  11.5 MBytes  9.65 Mbits/sec
+			[  3] 30.0-40.0 sec  11.4 MBytes  9.54 Mbits/sec
+			[  3] 40.0-50.0 sec  11.2 MBytes  9.44 Mbits/sec
+			[  3] 50.0-60.0 sec  11.5 MBytes  9.65 Mbits/sec
+			[  3]  0.0-60.0 sec  68.8 MBytes  9.61 Mbits/sec
+			In the python code, the speed is determined to be 10 mbps, which in this case is not perfectly 10, but still in the range of acception. Therefore, the measured data rate matches expectation.
+
+		b)				No iperf in the background
+						mininet> h1 ping h2
+						PING 10.0.0.2 (10.0.0.2) 56(84) bytes of data.
+						64 bytes from 10.0.0.2: icmp_seq=1 ttl=64 time=0.083 ms
+						64 bytes from 10.0.0.2: icmp_seq=2 ttl=64 time=0.062 ms
+						64 bytes from 10.0.0.2: icmp_seq=3 ttl=64 time=0.063 ms
+						64 bytes from 10.0.0.2: icmp_seq=4 ttl=64 time=0.060 ms
+						64 bytes from 10.0.0.2: icmp_seq=5 ttl=64 time=0.062 ms
+						64 bytes from 10.0.0.2: icmp_seq=6 ttl=64 time=0.063 ms
+						64 bytes from 10.0.0.2: icmp_seq=7 ttl=64 time=0.063 ms
+						64 bytes from 10.0.0.2: icmp_seq=8 ttl=64 time=0.063 ms
+						64 bytes from 10.0.0.2: icmp_seq=9 ttl=64 time=0.060 ms
+						64 bytes from 10.0.0.2: icmp_seq=10 ttl=64 time=0.063 ms
+						64 bytes from 10.0.0.2: icmp_seq=11 ttl=64 time=0.078 ms
+						64 bytes from 10.0.0.2: icmp_seq=12 ttl=64 time=0.055 ms
+						64 bytes from 10.0.0.2: icmp_seq=13 ttl=64 time=0.060 ms
+						64 bytes from 10.0.0.2: icmp_seq=14 ttl=64 time=0.062 ms
+						64 bytes from 10.0.0.2: icmp_seq=15 ttl=64 time=0.064 ms
+						64 bytes from 10.0.0.2: icmp_seq=16 ttl=64 time=0.062 ms
+						64 bytes from 10.0.0.2: icmp_seq=17 ttl=64 time=0.092 ms
+						64 bytes from 10.0.0.2: icmp_seq=18 ttl=64 time=0.062 ms
+						64 bytes from 10.0.0.2: icmp_seq=19 ttl=64 time=0.060 ms
+						64 bytes from 10.0.0.2: icmp_seq=20 ttl=64 time=0.063 ms
+						64 bytes from 10.0.0.2: icmp_seq=21 ttl=64 time=0.062 ms
+						64 bytes from 10.0.0.2: icmp_seq=22 ttl=64 time=0.055 ms
+						
+						--- 10.0.0.2 ping statistics ---
+						22 packets transmitted, 22 received, 0% packet loss, time 21486ms
+						rtt min/avg/max/mdev = 0.055/0.064/0.092/0.008 ms
+
+						There is iperf measurement in the background
+						mininet> h1 ping h2
+						PING 10.0.0.2 (10.0.0.2) 56(84) bytes of data.
+						64 bytes from 10.0.0.2: icmp_seq=1 ttl=64 time=0.066 ms
+						64 bytes from 10.0.0.2: icmp_seq=2 ttl=64 time=0.085 ms
+						64 bytes from 10.0.0.2: icmp_seq=3 ttl=64 time=0.102 ms
+						64 bytes from 10.0.0.2: icmp_seq=4 ttl=64 time=0.086 ms
+						64 bytes from 10.0.0.2: icmp_seq=5 ttl=64 time=0.099 ms
+						64 bytes from 10.0.0.2: icmp_seq=6 ttl=64 time=0.100 ms
+						64 bytes from 10.0.0.2: icmp_seq=7 ttl=64 time=0.072 ms
+						64 bytes from 10.0.0.2: icmp_seq=8 ttl=64 time=0.108 ms
+						64 bytes from 10.0.0.2: icmp_seq=9 ttl=64 time=0.102 ms
+						64 bytes from 10.0.0.2: icmp_seq=10 ttl=64 time=0.186 ms
+						64 bytes from 10.0.0.2: icmp_seq=11 ttl=64 time=0.104 ms
+						64 bytes from 10.0.0.2: icmp_seq=12 ttl=64 time=0.092 ms
+						64 bytes from 10.0.0.2: icmp_seq=13 ttl=64 time=0.098 ms
+						64 bytes from 10.0.0.2: icmp_seq=14 ttl=64 time=0.088 ms
+						64 bytes from 10.0.0.2: icmp_seq=15 ttl=64 time=0.101 ms
+						64 bytes from 10.0.0.2: icmp_seq=16 ttl=64 time=0.099 ms
+						64 bytes from 10.0.0.2: icmp_seq=17 ttl=64 time=0.071 ms
+						64 bytes from 10.0.0.2: icmp_seq=18 ttl=64 time=0.097 ms
+						64 bytes from 10.0.0.2: icmp_seq=19 ttl=64 time=0.072 ms
+						64 bytes from 10.0.0.2: icmp_seq=20 ttl=64 time=0.081 ms
+						
+						--- 10.0.0.2 ping statistics ---
+						20 packets transmitted, 20 received, 0% packet loss, time 19434ms
+						rtt min/avg/max/mdev = 0.066/0.095/0.186/0.024 ms
+
+						If only look at the average of two sets of data, no iperf in the background has a faster round-trip time comparing to the other one. It is due to transmission delay, which measures the time to get all the bits into the wire, in this case 64 Bytes.
+
+Problem 1.4
+					a)
+							[  3] local 10.0.0.2 port 51922 connected with 10.0.0.1 port 5001
+							[ ID] Interval       Transfer     Bandwidth
+							[  3]  0.0-10.0 sec  11.6 MBytes  9.75 Mbits/sec
+							[  3] 10.0-20.0 sec  11.4 MBytes  9.54 Mbits/sec
+							[  3] 20.0-30.0 sec  11.2 MBytes  9.44 Mbits/sec
+							[  3] 30.0-40.0 sec  11.5 MBytes  9.65 Mbits/sec
+							[  3] 40.0-50.0 sec  11.4 MBytes  9.54 Mbits/sec
+							[  3] 50.0-60.0 sec  11.4 MBytes  9.54 Mbits/sec
+							[  3]  0.0-60.1 sec  68.5 MBytes  9.56 Mbits/sec
+							mininet> h3 ping h4
+							PING 10.0.0.4 (10.0.0.4) 56(84) bytes of data.
+							64 bytes from 10.0.0.4: icmp_seq=1 ttl=64 time=11.5 ms
+							64 bytes from 10.0.0.4: icmp_seq=2 ttl=64 time=4.64 ms
+							64 bytes from 10.0.0.4: icmp_seq=3 ttl=64 time=0.368 ms
+							64 bytes from 10.0.0.4: icmp_seq=4 ttl=64 time=0.119 ms
+
+						Yes, the iperf measurement influences the first few round-trip times from a high value all the way to normal value.
+					b)
+						mininet> h2 iperf -s &
+						mininet> h1 iperf -c h2 -i 10 -t 60
+						[  4] local 10.0.0.1 port 5001 connected with 10.0.0.2 port 51922
+						[  4]  0.0-60.2 sec  68.5 MBytes  9.55 Mbits/sec
+						------------------------------------------------------------
+						Client connecting to 10.0.0.2, TCP port 5001
+						TCP window size: 85.3 KByte (default)
+						------------------------------------------------------------
+						[  3] local 10.0.0.1 port 40964 connected with 10.0.0.2 port 5001
+						[ ID] Interval       Transfer     Bandwidth
+						[  3]  0.0-10.0 sec  11.8 MBytes  9.86 Mbits/sec
+						[  3] 10.0-20.0 sec  11.4 MBytes  9.54 Mbits/sec
+						[  3] 20.0-30.0 sec  11.4 MBytes  9.54 Mbits/sec
+						[  3] 30.0-40.0 sec  11.4 MBytes  9.54 Mbits/sec
+						[  3] 40.0-50.0 sec  11.4 MBytes  9.54 Mbits/sec
+						[  3] 50.0-60.0 sec  11.4 MBytes  9.54 Mbits/sec
+						[  3]  0.0-60.1 sec  68.6 MBytes  9.58 Mbits/sec
+						mininet> h4 iperf -s &
+						mininet> h3 iperf -c h4 -i 10 -t 60
+						------------------------------------------------------------
+						Client connecting to 10.0.0.4, TCP port 5001
+						TCP window size:  136 KByte (default)
+						------------------------------------------------------------
+						[  3] local 10.0.0.3 port 39212 connected with 10.0.0.4 port 5001
+						[ ID] Interval       Transfer     Bandwidth
+						[  3]  0.0-10.0 sec  11.6 MBytes  9.75 Mbits/sec
+						[  3] 10.0-20.0 sec  11.4 MBytes  9.54 Mbits/sec
+						[  3] 20.0-30.0 sec  11.2 MBytes  9.44 Mbits/sec
+						[  3] 30.0-40.0 sec  11.4 MBytes  9.54 Mbits/sec
+						[  3] 40.0-50.0 sec  11.2 MBytes  9.44 Mbits/sec
+						[  3] 50.0-60.0 sec  11.4 MBytes  9.54 Mbits/sec
+						[  3]  0.0-60.1 sec  68.2 MBytes  9.53 Mbits/sec
+
+						When looking at the data we have here, two sets of iperf measurements do not affect each other, they are all having stable and expected values.
+
+Problem 1.5
+					a)
+						mininet> h1 iperf -c h4 -i 10 -t 60
+						------------------------------------------------------------
+						Client connecting to 10.0.0.4, TCP port 5001
+						TCP window size:  102 KByte (default)
+						------------------------------------------------------------
+						[  3] local 10.0.0.1 port 60878 connected with 10.0.0.4 port 5001
+						[ ID] Interval       Transfer     Bandwidth
+						[  3]  0.0-10.0 sec  11.6 MBytes  9.75 Mbits/sec
+						[  3] 10.0-20.0 sec  11.4 MBytes  9.54 Mbits/sec
+						[  3] 20.0-30.0 sec  11.4 MBytes  9.54 Mbits/sec
+						[  3] 30.0-40.0 sec  11.5 MBytes  9.65 Mbits/sec
+						[  3] 40.0-50.0 sec  11.4 MBytes  9.54 Mbits/sec
+						[  3] 50.0-60.0 sec  11.4 MBytes  9.54 Mbits/sec
+						[  3]  0.0-60.1 sec  68.6 MBytes  9.58 Mbits/sec
+						mininet> h3 iperf -c h2 -i 10 -t 60
+						------------------------------------------------------------
+						Server listening on TCP port 5001
+						TCP window size: 85.3 KByte (default)
+						------------------------------------------------------------
+						[  4] local 10.0.0.3 port 5001 connected with 10.0.0.1 port 57644
+						[ ID] Interval       Transfer     Bandwidth
+						[  4]  0.0-60.3 sec  68.6 MBytes  9.54 Mbits/sec
+						------------------------------------------------------------
+						Client connecting to 10.0.0.2, TCP port 5001
+						TCP window size: 85.3 KByte (default)
+						------------------------------------------------------------
+						[  3] local 10.0.0.3 port 37452 connected with 10.0.0.2 port 5001
+						[ ID] Interval       Transfer     Bandwidth
+						[  3]  0.0-10.0 sec  11.5 MBytes  9.65 Mbits/sec
+						[  3] 10.0-20.0 sec  11.5 MBytes  9.65 Mbits/sec
+						[  3] 20.0-30.0 sec  11.4 MBytes  9.54 Mbits/sec
+						[  3] 30.0-40.0 sec  11.2 MBytes  9.44 Mbits/sec
+						[  3] 40.0-50.0 sec  11.5 MBytes  9.65 Mbits/sec
+						[  3] 50.0-60.0 sec  11.4 MBytes  9.54 Mbits/sec
+						[  3]  0.0-60.0 sec  68.5 MBytes  9.57 Mbits/sec
+						mininet> h1 iperf -c h3 -i 10 -t 60
+						------------------------------------------------------------
+						Client connecting to 10.0.0.3, TCP port 5001
+						TCP window size: 85.3 KByte (default)
+						------------------------------------------------------------
+						[  3] local 10.0.0.1 port 57656 connected with 10.0.0.3 port 5001
+						[ ID] Interval       Transfer     Bandwidth
+						[  3]  0.0-10.0 sec  11.6 MBytes  9.75 Mbits/sec
+						[  3] 10.0-20.0 sec  11.4 MBytes  9.54 Mbits/sec
+						[  3] 20.0-30.0 sec  11.5 MBytes  9.65 Mbits/sec
+						[  3] 30.0-40.0 sec  11.4 MBytes  9.54 Mbits/sec
+						[  3] 40.0-50.0 sec  11.4 MBytes  9.54 Mbits/sec
+						[  3] 50.0-60.0 sec  11.4 MBytes  9.54 Mbits/sec
+						[  3]  0.0-60.1 sec  68.6 MBytes  9.58 Mbits/sec
+						mininet> h2 iperf -c h4 -i 10 -t 60
+						[  4] local 10.0.0.2 port 5001 connected with 10.0.0.3 port 37452
+						[  4]  0.0-60.2 sec  68.5 MBytes  9.55 Mbits/sec
+						------------------------------------------------------------
+						Client connecting to 10.0.0.4, TCP port 5001
+						TCP window size: 85.3 KByte (default)
+						------------------------------------------------------------
+						[  3] local 10.0.0.2 port 54730 connected with 10.0.0.4 port 5001
+						[ ID] Interval       Transfer     Bandwidth
+						[  3]  0.0-10.0 sec  11.5 MBytes  9.65 Mbits/sec
+						[  3] 10.0-20.0 sec  11.4 MBytes  9.54 Mbits/sec
+						[  3] 20.0-30.0 sec  11.5 MBytes  9.65 Mbits/sec
+						[  3] 30.0-40.0 sec  11.4 MBytes  9.54 Mbits/sec
+						[  3] 40.0-50.0 sec  11.4 MBytes  9.54 Mbits/sec
+						[  3] 50.0-60.0 sec  11.4 MBytes  9.54 Mbits/sec
+						[  3]  0.0-60.1 sec  68.5 MBytes  9.56 Mbits/sec
+
+					For these four sets of data, the measured data rate are more or less the same. This could because there are nothing in between of those Hosts, therefore no matter measure which host to another within h1, h2, h3, h4, they are all the same.
+
+					b)
+							mininet> h1 iperf -c h4 -i 10 -t 60
+							------------------------------------------------------------
+							Client connecting to 10.0.0.4, TCP port 5001
+							TCP window size: 85.3 KByte (default)
+							------------------------------------------------------------
+							[  3] local 10.0.0.1 port 60888 connected with 10.0.0.4 port 5001
+							[ ID] Interval       Transfer     Bandwidth
+							[  3]  0.0-10.0 sec  11.5 MBytes  9.65 Mbits/sec
+							[  3] 10.0-20.0 sec  11.4 MBytes  9.54 Mbits/sec
+							[  3] 20.0-30.0 sec  11.4 MBytes  9.54 Mbits/sec
+							[  3] 30.0-40.0 sec  11.4 MBytes  9.54 Mbits/sec
+							[  3] 40.0-50.0 sec  11.4 MBytes  9.54 Mbits/sec
+							[  3] 50.0-60.0 sec  11.4 MBytes  9.54 Mbits/sec
+							[  3]  0.0-60.1 sec  68.4 MBytes  9.55 Mbits/sec
+							mininet> h3 iperf -c h6 -i 10 -t 60
+							[  4] local 10.0.0.3 port 5001 connected with 10.0.0.1 port 57656
+							[  4]  0.0-60.4 sec  68.6 MBytes  9.54 Mbits/sec
+							connect failed: Connection refused
+							mininet> h6 iperf -s &
+							mininet> h3 iperf -c h6 -i 10 -t 60
+							------------------------------------------------------------
+							Client connecting to 10.0.0.6, TCP port 5001
+							TCP window size: 85.3 KByte (default)
+							------------------------------------------------------------
+							[  3] local 10.0.0.3 port 57230 connected with 10.0.0.6 port 5001
+							[ ID] Interval       Transfer     Bandwidth
+							[  3]  0.0-10.0 sec  7.75 MBytes  6.50 Mbits/sec
+							[  3] 10.0-20.0 sec  6.75 MBytes  5.66 Mbits/sec
+							[  3] 20.0-30.0 sec  8.00 MBytes  6.71 Mbits/sec
+							[  3] 30.0-40.0 sec  6.38 MBytes  5.35 Mbits/sec
+							[  3] 40.0-50.0 sec  6.75 MBytes  5.66 Mbits/sec
+							[  3] 50.0-60.0 sec  5.62 MBytes  4.72 Mbits/sec
+							[  3]  0.0-60.4 sec  41.2 MBytes  5.73 Mbits/sec
+
+						When running from h1 to h4, just like 1.5a, it stays around 10mbps, however, for h3 to h6, data are lost during process so that the amount of data needed to transfer is less. 
+
+
+

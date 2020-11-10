@@ -1,0 +1,12 @@
+a)
+Once removed "using namespace std;" from "testcritter.cpp",
+many of the used functions are not able to be defined,
+since all c++ libraries are in it.
+Without it included, we need to declare our functions by hands, such as
+'std:: cxxll::string' , 'std::cout', and 'std::endl' etc.
+b)
+Once deleted "Critter::" in one of the methods, setname, in "Critter.cpp",
+the program is not able to interpret variable "name".
+Because without telling the program to look for "name" in "setname", the program
+assumes I am declaring a new function with the name of "setname" instead of looking
+in the critter created.

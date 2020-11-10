@@ -1,0 +1,11 @@
+Problem 6.3
+a)
+enc :: String -> String
+enc xs = map (\c -> if isUpper c then (chr . (+127970) $ ord c) else (chr . (+128415) $ ord c)) xs
+
+b)
+isanimal :: Char -> Bool
+isanimal c = if ((ord c >= ord '🐣') && (ord c <= ord '🐼')) then True else False
+
+dec :: String -> String
+dec xs = map (\c -> if isanimal c then (chr $ (ord c) - 127970) else (chr $ (ord c) - 128415)) xs

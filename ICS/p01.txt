@@ -1,0 +1,66 @@
+PROBLEM1.1
+a)Naive: 11 alignments are used and 19 character comparisons are done. 																		skip	rule
+	t=	A	B	B	A	B	B	C	A	C	C	A	B	A	B	A	C	B	C	C	A	B	A	B		
+	p=	a	b	a	B																				0	default shift
+			a	B	A	B																			0	default shift
+				a	b	A	B																		0	default shift
+					a	b	a	B																	0	default shift
+						a	b	a	B																0	default shift
+							a	b	a	B															0	default shift
+								a	b	a	B														0	default shift
+									a	b	a	B													0	default shift
+										a	B	A	B												0	default shift
+											a	b	a	B											0	default shift
+												A	B	A	B											
+																										
+																										
+b)Bad Character: 6 alignments are used and 14 character comparisons are done.																										
+	t = 	A	B	B	A	B	B	C	A	C	C	A	B	A	B	A	C	B	C	C	A	B	A	B		
+	P =	a	b	a	B																				0	bad-character
+			A	B	A	B																			1	bad-character
+					a	b	a	B																	3	bad-character
+									a	b	a	B													0	bad-character
+										a	B	A	B												1	bad-character
+												A	B	A	B											
+c)Good Suffix: 9 alignments are used and 16 character comparisons are done.																										
+	t = 	A	B	B	A	B	B	C	A	C	C	A	B	A	B	A	C	B	C	C	A	B	A	B		
+	p = 	a	b	a	B																				0	default shift
+			A	B	A	B																			1	good-suffix(i)
+					a	b	a	B																	0	default shift
+						a	b	a	B																0	default shift
+							a	b	a	B															0	default shift
+								a	b	a	B														0	default shift
+									a	b	a	B													0	default shift
+										a	B	A	B												1	good-suffix(i)
+												A	B	A	B											
+d)Both: 6 alignments are used and 14 character comparisons are done.																										
+	t = 	A	B	B	A	B	B	C	A	C	C	A	B	A	B	A	C	B	C	C	A	B	A	B		
+	p = 	a	b	a	B																				0	bad-character
+			A	B	A	B																			1	good-suffix(i)
+					a	b	a	B																	3	bad-character
+									a	b	a	B													0	bad-character
+										a	B	A	B												1	good-suffix(i)
+												A	B	A	B											
+
+PROBLEM1.2
+a)
+	(-)((*)5 ((+)5 ((*)2 ((+)4 3)))) ((+)((*)5 10) 3)
+b)	
+	(42 `div` 2) `gcd` (30 `mod` 16)  
+
+PROBLEM1.3
+a)
+	precedence lv	associate
++	6		left	
+-	6		left
+*	7		left
+/	7		left
+^	8		right
+$	0		right
+&&	3		right
+||	2		right
+
+b)
+If a non-associate operater appears multiple times in an expression (without additional parenthesis), break these operators into several pairs of non-associative operators.
+For example, a==b==c interprets as (a==b) and (b==c), and then treats them one by one.
+Sometimes, these chained assignments are not legal to assign.

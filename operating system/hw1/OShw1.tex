@@ -1,0 +1,24 @@
+Problem 1.1 freshie crash
+		The program the freshie has wrote is very simple to explain.He wants to have the same output in the standard output as what being typed into the standard input. The problem is the output is not producing expected outputs.
+		This is due to memory segmentation fault, that “char d[len+1]” is not having what actually needed to be allocated. That is why it has to be changed to
+																		char* d = malloc(len*sizeof(char));
+		in order to allocate memory to the array for input to store.
+
+Problem 1.2 system call errors
+		a) 
+				·For the system call “open” to fail can due to the permission to access the file is denied or the file does not 
+				 exist and the permission to write is denied.
+				·For the system call “close” to fail can due to the function being interrupted by a signal.
+		b)
+				The default value of errno is 0, so if no error occurs, the value of errno should stay as 0.
+
+Problem 1.3 simple cat(scat) using library and system calls
+		a)	scat_a.c
+		b)	scat_b.c
+				After using 	time ./scat -l < some-large-file > /dev/null  and 
+										time ./scat -s < some-large-file > /dev/null, 
+				the execution time of C-library functions is much faster than the system call functions.
+		This could because in system call functions, there is a file descriptor that always need to check for its state while in the C-library functions characters being copied without any pause. 
+		After using strace to investigate read/write, one system call will execute for read and another for write. Therefore, two times of system calls of the number of bytes in total for the file is executed.
+		c)		scat_c.c
+				System call sendfile() is more efficient than the combination of read() and write(), this is because the copying is done within the kernal, so that user space is not taken.

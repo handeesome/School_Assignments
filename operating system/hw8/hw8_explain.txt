@@ -1,0 +1,7 @@
+This asssignment did not finish on time, therefore only the first couple functions are implemented.
+Thus, the two files are both not ready to be compiled and not being able to run.
+I just realized the deadline is 22:00 instead of 23:59pm.
+Up to this point of time, everything is ready except receiving and sending messages between clients and the server and then validate the answers.
+
+Sorry for incomplete codes and i totally understand if i dont get any point for this. :)
+If only, if only i can have one extra hour haha.

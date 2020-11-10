@@ -1,0 +1,31 @@
+Problem 2.1:
+Proof. We prove the contraposive: If n is divisible by 15, then n is also divisible by 3.
+Assume is divisible by 15, then n is a multiple of 15. Multiples of 15 are also multiples of 3, therefoer is also a multiple of 3. This finally leads to n is divisible by 3.
+
+Problem 2.2:   P=1^2 + 3^2 + 5^2 + . . .(2n − 1)^2 = (2n(2n − 1)(2n + 1))/2
+Proof. We prove P by induction.
+Base case: We show that P(0) is true. [ P(0) = (2(0)-1)^2 = (2(0)(2(0)-1)(2(0)+1))/6=1]
+Induction step: Assume P(n) is true. Then, 
+
+Problem 2.3
+a)
+isLeapYear :: Int -> Bool
+isLeapYear x = if x `mod`4 == 0 && ( not(x `mod` 100 == 0) || x `mod` 400 == 0 ) 
+               then True
+               else False
+b)
+isLeapYear' :: Int -> Bool
+isLeapYear' y  | y `mod` 400 == 0 = True
+        | y `mod` 100 == 0 = False
+        | y `mod` 4   == 0 = True
+        | otherwise        = False
+
+Problem 2.4
+a)	
+rotate n l = drop (mod n(length l)) l ++ take (mod n(length l))l
+b) rotate length l l = drop (mod (n-1)(length l)) l ++ take (mod (n-1)(length l))l
+
+rotate :: Int -> [a] -> [a]
+rotate 0 list = list
+rotate 1 list = tail list ++ [head list]
+rotate x list = rotate (x-1) (tail list ++ [head list])
